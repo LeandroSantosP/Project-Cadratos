@@ -31,6 +31,9 @@ export const AppThemeProvider: React.FC<AppThemeProviderProps> = ({ children }) 
       return DarkTheme;
    }, [themeName]);
 
+   
+   
+
    return (
       <ThemeContext.Provider value={{ themeName, toggleTheme }}>
          <ThemeProvider theme={theme}>
