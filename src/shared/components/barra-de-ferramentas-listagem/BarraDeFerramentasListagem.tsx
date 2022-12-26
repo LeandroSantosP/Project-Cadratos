@@ -3,7 +3,7 @@ import React from 'react';
 import { GrAdd } from 'react-icons/gr';
 
 
-interface BarraDeFerramentasProps {
+interface BarraDeFerramentasListagemProps {
    textSearched?: string;
    showSearchFilder?: boolean;
    handleSearchChange?: (newtext: string) => void;
@@ -13,7 +13,7 @@ interface BarraDeFerramentasProps {
    handleClickBtn?: () => void;
 }
 
-export const BarraDeFerramentas: React.FC<BarraDeFerramentasProps> = ({
+export const BarraDeFerramentasListagem: React.FC<BarraDeFerramentasListagemProps> = ({
    handleSearchChange,
    showSearchFilder = false,
    textSearched,
@@ -23,8 +23,6 @@ export const BarraDeFerramentas: React.FC<BarraDeFerramentasProps> = ({
    showNewButton = true
 }) => {
    const theme = useTheme();
-
-
 
    return (
       <Box
@@ -63,7 +61,5 @@ export const BarraDeFerramentas: React.FC<BarraDeFerramentasProps> = ({
 
          )}
       </Box>
-
-
    )
 }

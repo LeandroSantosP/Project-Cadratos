@@ -1,0 +1,16 @@
+{
+   "pessoas" : [
+      {
+         "id": 1,
+         "name": "leandro"
+      },   
+      {
+         "id": 2,
+         "name": "maria"
+      },
+      {
+         "id": 3,
+         "name": "lucas"
+      }
+   ]
+}

@@ -1,0 +1,1 @@
+// for start backend its easy, its jus typing 'run dev backend' in consol.
