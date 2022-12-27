@@ -2,6 +2,7 @@ import { Box, Button, Icon, Paper, TextField, useTheme } from '@mui/material'
 import React from 'react';
 import { GrAdd } from 'react-icons/gr';
 
+import { Environment } from '../../environment';
 
 interface BarraDeFerramentasListagemProps {
    textSearched?: string;
@@ -41,7 +42,7 @@ export const BarraDeFerramentasListagem: React.FC<BarraDeFerramentasListagemProp
                   <TextField
                      value={textSearched}
                      size='small'
-                     placeholder='Pesquisar...'
+                     placeholder={Environment.INPUT_DE_BUSCA}
                      onChange={({ target }) => handleSearchChange?.(target.value)}
                   />
                )

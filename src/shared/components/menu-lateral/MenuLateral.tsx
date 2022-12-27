@@ -1,11 +1,10 @@
-import { Avatar, Button, Divider, Drawer, Icon, ListItemButton, ListItemIcon, ListItemText, useTheme } from "@mui/material";
+import { Avatar, Button, Divider, Drawer, ListItemButton, ListItemText, useTheme } from "@mui/material";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Box } from "@mui/system";
 import React from "react";
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 import { useAppThemeContext, useDrawerContext } from "../../contexts";
 import { GiBedLamp } from 'react-icons/gi'
-import { light } from "@mui/material/styles/createPalette";
 
 
 interface IDrawerProviderProps {
