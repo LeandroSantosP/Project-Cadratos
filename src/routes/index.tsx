@@ -1,6 +1,6 @@
 import { useEffect } from "react";
+import { DashBoard, ListagemDePessoas, DetalhesDePessoas } from "../pages";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { DashBoard, ListagemDePessoas } from "../pages";
 import { useDrawerContext } from "../shared/contexts";
 
 import { BsFillPeopleFill } from 'react-icons/bs'
@@ -20,7 +20,7 @@ export const AppRoutes = () => {
          },
          {
             label: 'Pessoas',
-            path: '/cidades',
+            path: '/pessoas',
             icon: <BsFillPeopleFill />,
          },
       ]);
@@ -29,8 +29,8 @@ export const AppRoutes = () => {
    return (
       <Routes>
          <Route path="/pagina-inicial" element={<DashBoard />} />
-         <Route path="/cidades" element={<ListagemDePessoas />} />
-         {/* <Route path="/cidades/detalhe/:id" element={<ListagemDeCidades />} /> */}
+         <Route path="/pessoas" element={<ListagemDePessoas />} />
+         <Route path="/pessoas/detalhe/:id" element={<DetalhesDePessoas />} />
 
          <Route path="*" element={<Navigate to="/pagina-inicial"/>} />
       </Routes>
