@@ -73,13 +73,12 @@ const create = async (dados: Omit<IDetalhePessoa, 'id'>): Promise<number | Error
 
 const updateById = async (id: number, dados: IDetalhePessoa): Promise<void | Error> => {
    try {
-      const urlRelative = `/pessoas/${id}`;
-      await Api.put(urlRelative, dados);
-   } catch (err) {
-      console.error(err);
-      return new Error((err as { message: string }).message || 'Error ao atualizar o registro.');
+      await Api.put(`/pessoas/${id}`, dados);
+   } catch (error) {
+      console.error(error);
+      return new Error((error as { message: string }).message || 'Erro ao atualizar o registro.');
    }
-}
+};
 
 const deleteById = async (id: number): Promise<void | Error> => {
    try {

@@ -55,13 +55,12 @@ export const ListagemDePessoas: React.FC = () => {
                if (result instanceof Error) {
                   alert(result.message)
                } else {
-                  setPeaploInfos(oldinfos => [ ...oldinfos.filter(oldinfo => oldinfo.id !== id) ]);
+                     setPeaploInfos(oldinfos => [ ...oldinfos!.filter(oldinfo => oldinfo.id !== id) ]);
                   alert('Registro apagado com sucesso!');
                }
             });
       }
    }
-
 
    return (
       <>
