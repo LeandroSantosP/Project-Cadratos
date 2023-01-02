@@ -1,41 +1,104 @@
-import { Theme, Typography, useMediaQuery } from "@mui/material";
-import { useEffect } from "react";
+import {
+   Card,
+   CardContent,
+   Grid,
+   LinearProgress,
+   Theme,
+   Typography,
+   useMediaQuery,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
 import { BarraDeFerramentasDeDetalhes } from "../../shared/components";
+import { useDebounce } from "../../shared/hooks";
 import { LayoutDefault } from "../../shared/layouts/";
+import { CidadesServices } from "../../shared/services/api/Cidades/CidadesServices";
 import { PessoasServices } from "../../shared/services/api/pessoas/PessoasServises";
 
 export const DashBoard = () => {
-   const sdDown = useMediaQuery((theme: Theme)  => theme.breakpoints.down('sm'));
-   const mdDown = useMediaQuery((theme: Theme)  => theme.breakpoints.down('md'));
+   const [isLoading, setIsLoading] = useState<boolean>(true);
+   const [totalCount, setTotalCount] = useState(0);
+   const [totalCountPessoas, setTotalCountPessoas] = useState(0);
+   const { debounce } = useDebounce();
 
+   useEffect(() => {
+      setIsLoading(true);
+      CidadesServices.getAll(1).then((response) => {
+         setIsLoading(false);
+         if (response instanceof Error) {
+            alert(response.message);
+         } else {
+            setTotalCount(response.totalCount);
+         }
+      });
+   }, []);
 
-   
-   // useEffect(() => {
-   //    const request = async () => {
-   //       const response = await PessoasServices.create(newpeaple);
-   //       console.log(response)
-   //    }
-   //    request();
-   // }, [])
+   useEffect(() => {
+      setIsLoading(true);
 
-   const handleClick = () => {
-      console.log("ok")
-   };
+      debounce(() => {
+         PessoasServices.getAll(1).then((response) => {
+            setIsLoading(false);
+            if (response instanceof Error) {
+               alert(response.message);
+            } else {
+               setTotalCountPessoas(response.totalCount);
+            }
+         });
+      });
+   }, []);
 
-   
-   return(
-      <LayoutDefault title="Pagina inicial" toolBar={
-         <BarraDeFerramentasDeDetalhes 
-            /* Skeletons showing is needed to put 'showBtnAll: false' */
-            showBtnAll={true}
-            showSkeletons={true}
-            showBtnNew={sdDown ? false : true}
-            showBtnSaveAndBack={mdDown ? false : true} 
-            onClickNew={handleClick}
-         /> }>
-         <Typography>
-            tets
-         </Typography>
+   return (
+      <LayoutDefault
+         title="Pagina inicial"
+         toolBar={
+            <BarraDeFerramentasDeDetalhes
+               showSkeletons={false}
+               showBtnAll={false}
+            />
+         }
+      >
+         <Box width="100%" display="flex">
+            <Grid container margin={1}>
+               <Grid item width={"100%"} marginBottom={2}>
+                  {isLoading && <LinearProgress variant="indeterminate" />}
+               </Grid>
+
+               <Grid container item spacing={2}>
+                  <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                     <Card>
+                        <CardContent>
+                           <Typography variant="h5" align="center">
+                              Total de Pessoas
+                           </Typography>
+
+                           <Box padding={5}>
+                              <Typography variant="h1" align="center">
+                                 {totalCountPessoas}
+                              </Typography>
+                           </Box>
+                        </CardContent>
+                     </Card>
+                  </Grid>
+
+                  <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                     <Card>
+                        <CardContent>
+                           <Typography variant="h5" align="center">
+                              Total de Cidades
+                           </Typography>
+
+                           <Box padding={5}>
+                              <Typography variant="h1" align="center">
+                                 {totalCount}
+                              </Typography>
+                           </Box>
+                        </CardContent>
+                     </Card>
+                  </Grid>
+               </Grid>
+            </Grid>
+         </Box>
       </LayoutDefault>
    );
-}
+};

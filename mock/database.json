@@ -1,28 +1,22 @@
 {
   "pessoas": [
     {
-      "id": 10,
-      "completeName": "leandropereiraddd",
-      "email": "test@tesdsd",
-      "cityId": "10"
-    },
-    {
       "id": 11,
       "completeName": "henrique",
-      "email": "test@test.com",
-      "cityId": 2000
+      "email": "test@test.comdsadd",
+      "cityId": 1
     },
     {
       "id": 12,
       "completeName": "matheus tereza",
       "email": "test@test.com",
-      "cityId": 2000
+      "cityId": 4
     },
     {
       "id": 21,
       "completeName": "joao santos alencar",
       "email": "test@test.com",
-      "cityId": "100"
+      "cityId": 3
     },
     {
       "id": 23,
@@ -35,6 +29,44 @@
       "completeName": "joginho text santosa",
       "email": "test@test.com",
       "cityId": "2"
+    },
+    {
+      "id": 25,
+      "completeName": "test@test.com",
+      "email": "test.com",
+      "cityId": "123"
+    },
+    {
+      "completeName": "leandro",
+      "email": "test@test.com",
+      "cityId": "test",
+      "id": 26
+    }
+  ],
+  "cidades": [
+    {
+      "id": 1,
+      "name": "Sao paulo"
+    },
+    {
+      "id": 2,
+      "name": "mato grosso"
+    },
+    {
+      "name": "santos",
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "Osasco"
+    },
+    {
+      "id": 5,
+      "name": "Santo Andre"
+    },
+    {
+      "id": 6,
+      "name": "California"
     }
   ]
 }

@@ -5,24 +5,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { LayoutDefault } from '../../shared/layouts';
 import { VForm, VTextField, useVForm, IVFormErrors } from '../../shared/forms';
-import { AutoCompleteCidade, BarraDeFerramentasDeDetalhes } from '../../shared/components';
-import { PessoasServices } from '../../shared/services/api/pessoas/PessoasServises';
+import { BarraDeFerramentasDeDetalhes } from '../../shared/components';
+import { CidadesServices } from '../../shared/services/api/Cidades/CidadesServices';
 import * as yup from 'yup'
 
 
 interface IFormData {
-  email: string;
-  cityId: number
-  completeName: string;
+  name: string;
 }
 
 const formValidationSchema: yup.SchemaOf<IFormData> = yup.object().shape({
-  completeName: yup.string().required().min(3),
-  email: yup.string().required().email(),
-  cityId: yup.number().required(),
+  name: yup.string().required().min(3),
 });
 
-export const DetalhesDePessoas: React.FC = () => {
+export const DetalhesDeCidades: React.FC = () => {
   const { FormRef, save, IsSaveAndClose, saveAndClose } = useVForm();
   const [isLoading, setIsLoading] = useState(false);
   const { id = 'nova' } = useParams<'id'>();
@@ -32,73 +28,69 @@ export const DetalhesDePessoas: React.FC = () => {
   useEffect(() => {
     setIsLoading(true)
     if (id !== 'nova') {
-      PessoasServices.getById(Number(id))
+      CidadesServices.getById(Number(id))
         .then(result => {
           setIsLoading(false);
           if (result instanceof Error) {
             alert(result.message);
-            navigate('/pessoas/');
+            navigate('/cidades/');
           } else {
-            setTitle(result.completeName)
+            setTitle(result.name)
             FormRef.current?.setData(result)
           }
         })
     } else {
       setIsLoading(false);
       FormRef.current?.setData({
-        completeName: '',
-        email: '',
-        cityId: undefined
+        name: '',
       });
     }
   }, [id]);
 
   const handleDelete = (id: number) => {
     if (confirm('Realmente deseja apagar?')) {
-      PessoasServices.deleteById(id)
+      CidadesServices.deleteById(id)
         .then(result => {
           if (result instanceof Error) {
             alert(result.message)
           } else {
             alert('Registro apagado com sucesso!');
-            navigate('/pessoas/')
+            navigate('/cidades/')
           }
         });
     }
   };
 
   const handleSave = (dados: IFormData) => {
-    console.log(dados)
 
     formValidationSchema.validate(dados, { abortEarly: false })
       .then((validatedDados) => {
         setIsLoading(true);
         if (id === 'nova') {
-          PessoasServices.create(validatedDados)
+          CidadesServices.create(validatedDados)
             .then(result => {
               setIsLoading(false)
               if (result instanceof Error) {
                 alert(result.message);
               } else {
                 if (IsSaveAndClose.current) {
-                  navigate(`/pessoas/`)
+                  navigate(`/cidades/`)
                 } else {
-                  navigate(`/pessoas/detalhe/${result}`)
+                  navigate(`/cidades/detalhe/${result}`)
                 }
               }
 
             });
         } else {
-          PessoasServices.updateById(Number(id), { id: Number(id), ...validatedDados })
+          CidadesServices.updateById(Number(id), { id: Number(id), ...validatedDados })
             .then(result => {
               setIsLoading(false);
 
               if (result instanceof Error) {
-                console.log(result)
                 alert(result.message);
               } else {
                 if (IsSaveAndClose.current) {
-                  navigate(`/pessoas/`)
+                  navigate(`/cidades/`)
                 }
               }
             });
@@ -106,6 +98,7 @@ export const DetalhesDePessoas: React.FC = () => {
       })
       .catch((errors: yup.ValidationError) => {
         const validarionErrors: IVFormErrors = {};
+
         errors.inner.forEach(error => {
           if (!error.path) return;
           validarionErrors[error.path] = error.message;
@@ -117,7 +110,7 @@ export const DetalhesDePessoas: React.FC = () => {
 
   return (
     <LayoutDefault
-      title={id == 'nova' ? 'Nova Pessoa' : `${title}`}
+      title={id == 'nova' ? 'Nova Cidade' : `${title}`}
       toolBar={
         <BarraDeFerramentasDeDetalhes
           showBtnSaveAndBack
@@ -128,9 +121,9 @@ export const DetalhesDePessoas: React.FC = () => {
 
           onClickSave={save}
           onClickSaveAndBack={saveAndClose}
-          onClickBack={() => navigate('/pessoas/')}
+          onClickBack={() => navigate('/cidades/')}
           onClickDelete={() => handleDelete(Number(id))}
-          onClickNew={() => navigate('/pessoas/detalhe/nova')}
+          onClickNew={() => navigate('/cidades/detalhe/nova')}
         />}>
 
       <VForm ref={FormRef} onSubmit={handleSave} >
@@ -158,27 +151,11 @@ export const DetalhesDePessoas: React.FC = () => {
             <Grid container item direction='row' spacing={2}>
               <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
                 <VTextField
-                  label='Digite o nome completo'
-                  name='completeName'
+                  name='name'
+                  label='Nome'
                   fullWidth
                   onChange={(e) => setTitle(e.target.value)}
                   disabled={isLoading} />
-              </Grid>
-            </Grid>
-
-            <Grid container item direction='row' spacing={2}>
-              <Grid item xs={12} sm={12} md={6} lg={4} xl={2} >
-                <VTextField
-                  label='Digite um E-mail valido'
-                  name='email'
-                  fullWidth
-                  disabled={isLoading} />
-              </Grid>
-            </Grid>
-
-            <Grid container item direction='row' spacing={2}>
-              <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
-                <AutoCompleteCidade isExternalLoading={isLoading} />
               </Grid>
             </Grid>
 

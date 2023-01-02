@@ -1,16 +1,17 @@
 import { Alert, Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material'
 import React, { useEffect, useMemo, useState } from 'react'
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
-import { IListagemPessoas, PessoasServices } from '../../shared/services/api/pessoas/PessoasServises'
+import { IListagemCidades, CidadesServices } from '../../shared/services/api/Cidades/CidadesServices'
 import { BarraDeFerramentasListagem } from '../../shared/components'
 import { LayoutDefault } from '../../shared/layouts'
 import { useDebounce } from '../../shared/hooks'
 import { Box } from '@mui/system';
-import { Environment } from '../../shared/environment';
+import { Environment } from '../../shared/environment'
 
-export const ListagemDePessoas: React.FC = () => {
-   const [peaploInfos, setPeaploInfos] = useState<IListagemPessoas[] | null>([]);
+
+export const ListagemDeCidades: React.FC = () => {
+   const [cityInfos, setCityInfos] = useState<IListagemCidades[] | null>([]);
    const [searchParams, setSearchParams] = useSearchParams();
    const [totalCount, setTotalCount] = useState<number>(0);
    const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -31,14 +32,14 @@ export const ListagemDePessoas: React.FC = () => {
       setIsLoading(true);
 
       debounce(() => {
-         PessoasServices.getAll(page, search)
+         CidadesServices.getAll(page, search)
             .then(response => {
                setIsLoading(false);
                if (response instanceof Error) {
                   alert(response.message);
-                  setPeaploInfos(null);
+                  setCityInfos(null);
                } else {
-                  setPeaploInfos(response.data);
+                  setCityInfos(response.data);
                   setTotalCount(response.totalCount);
                }
             })
@@ -49,28 +50,28 @@ export const ListagemDePessoas: React.FC = () => {
    const handleDelete = (id: number) => {
 
       if (confirm('Realmente deseja apagar?')) {
-         PessoasServices.deleteById(id)
+         CidadesServices.deleteById(id)
             .then(result => {
                if (result instanceof Error) {
                   alert(result.message)
                } else {
-                     setPeaploInfos(oldinfos => [ ...oldinfos!.filter(oldinfo => oldinfo.id !== id) ]);
-                  alert('Registro apagado com sucesso!');
+                     setCityInfos(oldinfos => [ ...oldinfos!.filter(oldinfo => oldinfo.id !== id) ]);
+                     alert('Registro apagado com sucesso!');
                }
             });
       }
-   };
+   }
 
    return (
       <>
-         <LayoutDefault title='Listagem de Pessoas'
+         <LayoutDefault title='Listagem de Cidades'
             toolBar={
                <BarraDeFerramentasListagem
                textSearched={search}
                handleSearchChange={text => setSearchParams({ search: text, page: '1' }, { replace: true })}
                showSearchFilder
                textButtom='Nova'
-               handleClickBtn={(() => navigate(`/pessoas/detalhe/nova`))}
+               handleClickBtn={(() => navigate(`/cidades/detalhe/nova`))}
             />}>
             {isLoading ? (
                <Box sx={{ width: '100%' }}>
@@ -90,29 +91,27 @@ export const ListagemDePessoas: React.FC = () => {
                      <TableHead>
                         <TableRow>
                            <TableCell width={100}>Ações</TableCell>
-                           <TableCell>Nome completo</TableCell>
-                           <TableCell>E-mail</TableCell>
+                           <TableCell>Nome</TableCell>
                         </TableRow>
                      </TableHead>
 
                      <TableBody>
-                        {peaploInfos && peaploInfos?.map(info => (
+                        {cityInfos && cityInfos?.map(info => (
                            <TableRow key={info.id}>
                               <TableCell>
                                  <IconButton size='small' onClick={() => handleDelete(info.id)}>
                                     <Icon><AiFillDelete /></Icon>
                                  </IconButton>
-                                 <IconButton size='small' onClick={() => navigate(`/pessoas/detalhe/${info.id}`)}>
+                                 <IconButton size='small' onClick={() => navigate(`/cidades/detalhe/${info.id}`)}>
                                     <Icon><AiFillEdit /></Icon>
                                  </IconButton>
                               </TableCell>
-                              <TableCell>{info.completeName}</TableCell>
-                              <TableCell>{info.email}</TableCell>
+                              <TableCell>{info.name}</TableCell>
                            </TableRow>
                         ))}
                      </TableBody>
                      <TableFooter>
-                        {peaploInfos?.length === 0 && !isLoading && (
+                        {cityInfos?.length === 0 && !isLoading && (
                            <TableRow>
                               <TableCell colSpan={3}>
                                  <Alert severity="warning">
