@@ -3,17 +3,16 @@ import {
    CardContent,
    Grid,
    LinearProgress,
-   Theme,
    Typography,
-   useMediaQuery,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
-import { BarraDeFerramentasDeDetalhes } from "../../shared/components";
 import { useDebounce } from "../../shared/hooks";
 import { LayoutDefault } from "../../shared/layouts/";
+import { BarraDeFerramentasDeDetalhes } from "../../shared/components";
 import { CidadesServices } from "../../shared/services/api/Cidades/CidadesServices";
 import { PessoasServices } from "../../shared/services/api/pessoas/PessoasServises";
+
 
 export const DashBoard = () => {
    const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -32,6 +31,7 @@ export const DashBoard = () => {
          }
       });
    }, []);
+
 
    useEffect(() => {
       setIsLoading(true);

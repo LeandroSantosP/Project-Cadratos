@@ -2,7 +2,6 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import { Api } from "../../services/api/axios-config";
 
-
 interface useAxiosProps {
    data: ''
 }
@@ -19,7 +18,6 @@ export const useAxios = () => {
 
    const request = useCallback(async (endpoint: string) => {
       let response;
-      let json;
       try {
          response = Api.get(endpoint)
       } catch (err) {

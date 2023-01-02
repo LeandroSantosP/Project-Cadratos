@@ -1,7 +1,5 @@
 import React, { createContext, useCallback, useContext, useState } from "react";
 
-
-
 export const useDrawerContext = () => {
    return useContext(DrawerContext);
 };

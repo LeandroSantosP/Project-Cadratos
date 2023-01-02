@@ -1,6 +1,6 @@
-import { TextField, TextFieldProps } from "@mui/material"
-import { useField } from "@unform/core"
+import { TextField, TextFieldProps } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useField } from "@unform/core"
 
 type TTextFieldProps = TextFieldProps & {
    name: string;

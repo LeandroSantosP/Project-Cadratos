@@ -1,9 +1,9 @@
-import { Button, Icon, Paper, Skeleton, Typography, useTheme } from '@mui/material';
-import { Box } from '@mui/system'
-import React from 'react'
-import { AiFillSave, AiFillDelete, AiFillFileAdd, AiOutlineArrowLeft } from 'react-icons/ai';
-import {IoIosAdd} from 'react-icons/io'
+import React from 'react';
+import { Box } from '@mui/system';
+import {IoIosAdd} from 'react-icons/io';
 import { BsFillBackspaceFill } from 'react-icons/bs';
+import { AiFillDelete, AiFillFileAdd, AiOutlineArrowLeft } from 'react-icons/ai';
+import { Button, Icon, Paper, Skeleton, Typography, useTheme } from '@mui/material';
 
 
 interface BarraDeFerramentasDeDetalhesProps {

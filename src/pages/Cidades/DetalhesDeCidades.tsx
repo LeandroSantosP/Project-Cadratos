@@ -1,11 +1,11 @@
 import { Box } from '@mui/system';
-import { Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Grid, LinearProgress, Paper, Typography } from '@mui/material';
 
 import { LayoutDefault } from '../../shared/layouts';
-import { VForm, VTextField, useVForm, IVFormErrors } from '../../shared/forms';
 import { BarraDeFerramentasDeDetalhes } from '../../shared/components';
+import { VForm, VTextField, useVForm, IVFormErrors } from '../../shared/forms';
 import { CidadesServices } from '../../shared/services/api/Cidades/CidadesServices';
 import * as yup from 'yup'
 

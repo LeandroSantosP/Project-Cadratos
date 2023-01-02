@@ -1,13 +1,14 @@
-import { Alert, Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material'
-import React, { useEffect, useMemo, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
-import { IListagemCidades, CidadesServices } from '../../shared/services/api/Cidades/CidadesServices'
-import { BarraDeFerramentasListagem } from '../../shared/components'
-import { LayoutDefault } from '../../shared/layouts'
-import { useDebounce } from '../../shared/hooks'
 import { Box } from '@mui/system';
-import { Environment } from '../../shared/environment'
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Alert, Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
+
+import { useDebounce } from '../../shared/hooks';
+import { LayoutDefault } from '../../shared/layouts';
+import { Environment } from '../../shared/environment';
+import { BarraDeFerramentasListagem } from '../../shared/components';
+import { IListagemCidades, CidadesServices } from '../../shared/services/api/Cidades/CidadesServices';
 
 
 export const ListagemDeCidades: React.FC = () => {

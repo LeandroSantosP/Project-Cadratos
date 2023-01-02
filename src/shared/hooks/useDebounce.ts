@@ -1,7 +1,5 @@
 import { useCallback, useRef } from "react";
 
-
-
 export const useDebounce = (delay = 300, notDelayInFristTime = true ) => {
 
    const isFristTime = useRef<boolean>(notDelayInFristTime);

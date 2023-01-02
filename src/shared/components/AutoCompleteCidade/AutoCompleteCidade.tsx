@@ -1,6 +1,7 @@
-import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import { useField } from "@unform/core";
 import { useEffect, useMemo, useState } from "react";
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
+
 import { useDebounce } from "../../hooks";
 import { CidadesServices } from "../../services/api/Cidades/CidadesServices";
 

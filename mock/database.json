@@ -68,5 +68,8 @@
       "id": 6,
       "name": "California"
     }
-  ]
+  ],
+  "auth": {
+    "accectToken": "aaaaaaaaaaaaaa.bbbbbbbbbb.ccccccccccc"
+  }
 }
