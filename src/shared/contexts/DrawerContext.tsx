@@ -11,7 +11,7 @@ interface AppDrawerProviderProps {
 };
 
 
-interface IDrawerOptions {
+export interface IDrawerOptions {
    icon: React.ReactNode;
    label: string;
    path: string;

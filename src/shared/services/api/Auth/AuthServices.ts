@@ -11,8 +11,8 @@ const Auth = async (email: string, password: string): Promise<AuthProps | Error>
 
       if (data) {
          return data;
-      }
-
+      };
+      
       return new Error('Error consultar o login..');
    } catch (err) {
       console.error(err);

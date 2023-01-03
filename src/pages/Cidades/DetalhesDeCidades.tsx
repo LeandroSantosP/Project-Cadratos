@@ -77,9 +77,8 @@ export const DetalhesDeCidades: React.FC = () => {
                   navigate(`/cidades/`)
                 } else {
                   navigate(`/cidades/detalhe/${result}`)
-                }
-              }
-
+                };
+              };
             });
         } else {
           CidadesServices.updateById(Number(id), { id: Number(id), ...validatedDados })

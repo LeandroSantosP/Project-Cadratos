@@ -1,16 +1,23 @@
-import { useEffect } from "react";
+import { ReactText, useEffect } from "react";
 import { DashBoard, ListagemDePessoas, DetalhesDePessoas, DetalhesDeCidades, ListagemDeCidades } from "../pages";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useDrawerContext } from "../shared/contexts";
+import { useAuthContext, useDrawerContext } from "../shared/contexts";
 
 import { BsFillPeopleFill } from 'react-icons/bs'
 import { FaCity } from 'react-icons/fa'
 import {
    AiFillHome
 } from 'react-icons/ai'
+import { LoginAuth } from "../pages/Login/LoginAuth";
 
 export const AppRoutes = () => {
    const { setDrawerOptions } = useDrawerContext();
+   
+   const PrivateRoute = (Item: React.FC) => {
+      const { isAuthenticated } = useAuthContext();
+      
+      return isAuthenticated ? (<Item/>) : (<LoginAuth />)
+   }
 
    useEffect(() => {
       setDrawerOptions([
@@ -34,12 +41,12 @@ export const AppRoutes = () => {
 
    return (
       <Routes>
-         <Route path="/pagina-inicial" element={<DashBoard />} />
-         <Route path="/pessoas" element={<ListagemDePessoas />} />
-         <Route path="/pessoas/detalhe/:id" element={<DetalhesDePessoas />} />
+         <Route path="/pagina-inicial" element={PrivateRoute(DashBoard)} />
+         <Route path="/pessoas" element={PrivateRoute(ListagemDePessoas)} />
+         <Route path="/pessoas/detalhe/:id" element={PrivateRoute(DetalhesDePessoas)} />
 
-         <Route path="/cidades/detalhe/:id" element={<DetalhesDeCidades />} />
-         <Route path="/cidades" element={<ListagemDeCidades />} />
+         <Route path="/cidades/detalhe/:id" element={PrivateRoute(DetalhesDeCidades)} />
+         <Route path="/cidades" element={PrivateRoute(ListagemDeCidades)} />
 
          <Route path="*" element={<Navigate to="/pagina-inicial" />} />
       </Routes>

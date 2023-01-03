@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { MenuLateral } from './shared/components';
 import { AuthProvider } from './shared/contexts/AuthCotext';
 import { AppDrawerProvider, AppThemeProvider } from './shared/contexts';
+import { LoginAuth } from './pages/Login/LoginAuth';
 
 function App() {
 
@@ -11,15 +12,17 @@ function App() {
     <AppThemeProvider>
       <AppDrawerProvider>
         <AuthProvider>
+          <LoginAuth>
 
-          <BrowserRouter>
+            <BrowserRouter>
 
-            <MenuLateral>
-              <AppRoutes />
-            </MenuLateral>
+              <MenuLateral>
+                <AppRoutes />
+              </MenuLateral>
 
-          </BrowserRouter>
+            </BrowserRouter>
 
+          </LoginAuth>
         </AuthProvider>
       </AppDrawerProvider>
     </AppThemeProvider>

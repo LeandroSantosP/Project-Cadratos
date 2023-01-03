@@ -20,15 +20,12 @@ export const AutoCompleteCidade: React.FC<IAutoCompleteCidadeProps> = ({
 }) => {
    const { fieldName, registerField, defaultValue, error, clearError } =
       useField("cityId");
-   const { debounce } = useDebounce();
-
-   const [selectedId, setSelectedId] = useState<number | undefined>(
-      defaultValue
-   );
-
    const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
    const [isLoading, setIsLoading] = useState(false);
    const [busca, setBusca] = useState("");
+   const { debounce } = useDebounce();
+
+   const [selectedId, setSelectedId] = useState<number | undefined>(defaultValue);
 
    useEffect(() => {
       registerField({
@@ -40,28 +37,25 @@ export const AutoCompleteCidade: React.FC<IAutoCompleteCidadeProps> = ({
 
    useEffect(() => {
       setIsLoading(true);
-
+      
       debounce(() => {
-         CidadesServices.getAll(1, busca).then((result) => {
-            setIsLoading(false);
+         CidadesServices.getAll(1, busca)
+            .then((result) => {
+               setIsLoading(false);
 
-            if (result instanceof Error) {
-               alert(result.message);
-            } else {
-               console.log(result);
-
-               setOpcoes(
-                  result.data.map((cidade) => ({ id: cidade.id, label: cidade.name }))
-               );
-            }
-         });
+               if (result instanceof Error) {
+                  // alert(result.message)
+               } else {
+                  setOpcoes(result.data.map(cidade => ({ id: cidade.id, label: cidade.name })));
+               }
+            });
       });
    }, [busca]);
 
    const autoCompleteSelectedOption = useMemo(() => {
       if (!selectedId) return null;
 
-      const selectedOption = opcoes.find((opcao) => opcao.id === selectedId);
+      const selectedOption = opcoes.find(opcao => opcao.id === selectedId);
       if (!selectedOption) return null;
 
       return selectedOption;
@@ -74,20 +68,17 @@ export const AutoCompleteCidade: React.FC<IAutoCompleteCidadeProps> = ({
          noOptionsText="Sem opções"
          loadingText="Carregando..."
          disablePortal
-         
          options={opcoes}
          loading={isLoading}
          disabled={isExternalLoading}
          value={autoCompleteSelectedOption}
          onInputChange={(_, newValue) => setBusca(newValue)}
-         onChange={(_, newValue) => {
-            setSelectedId(newValue?.id);
-            setBusca("");
-            clearError();
-         }}
+         onChange={(_, newValue) => { setSelectedId(newValue?.id); setBusca(''); clearError(); }}
          popupIcon={
             isExternalLoading || isLoading ? (
-               <CircularProgress size={28} />
+               <>
+                  <CircularProgress size={28} />
+               </>
             ) : undefined
          }
          renderInput={(params) => (

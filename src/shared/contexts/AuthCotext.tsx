@@ -46,7 +46,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
    },[]);
 
    const isAuthenticated = useMemo(() => !!accessToken, [accessToken]);
-
+   
    return(
       <AuthContext.Provider value={{ isAuthenticated, login: handleLogin, logout: handleLogout }}>
          {children}

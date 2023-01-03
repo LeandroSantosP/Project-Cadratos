@@ -17,7 +17,7 @@ export const ListagemDePessoas: React.FC = () => {
    const [isLoading, setIsLoading] = useState<boolean>(true);
    const { debounce } = useDebounce();
    const navigate = useNavigate();
-
+   console.log(peaploInfos)
    const search = useMemo(() => {
       return searchParams.get('search') || '';
    }, [searchParams]);

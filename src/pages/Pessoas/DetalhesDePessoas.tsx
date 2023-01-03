@@ -48,7 +48,7 @@ export const DetalhesDePessoas: React.FC = () => {
       FormRef.current?.setData({
         completeName: '',
         email: '',
-        cityId: undefined
+        cityId: '' 
       });
     }
   }, [id]);
@@ -68,8 +68,8 @@ export const DetalhesDePessoas: React.FC = () => {
   };
 
   const handleSave = (dados: IFormData) => {
-    console.log(dados)
-
+    console.log(dados);
+    
     formValidationSchema.validate(dados, { abortEarly: false })
       .then((validatedDados) => {
         setIsLoading(true);
